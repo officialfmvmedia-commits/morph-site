@@ -90,3 +90,6 @@ nav{display:flex;gap:40px;font-size:15px;font-style:italic;color:var(--ink2)}nav
 .rd-close .back{font-size:14px!important;font-style:italic;color:var(--ink3)!important;margin-top:40px}
 .in-rd .tag,.in-rd .chap,.in-rd .hud,.in-rd .hint{opacity:0!important;transition:opacity .6s}
 @media(max-width:800px){.cols,.tracks,.plates2,.miles{grid-template-columns:1fr}.rd-in{padding:18vh 24px}}
+
+nav a.xl{color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(42,39,35,.3);padding-bottom:1px}nav a.xl:hover{color:var(--ink)}
+.xclose{margin-top:28px;font-size:15px;font-style:italic}.xclose a{color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(42,39,35,.3)}
