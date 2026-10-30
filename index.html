@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morph — Studies in Actuated Form</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css?v=9">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+</head><body>
+<div class="linen"></div><div class="light"></div><div class="shade"></div>
+<canvas id="gl"></canvas>
+<svg id="leaders"></svg><div id="labels"></div>
+<header class="bar">
+  <div class="mark">Morph</div>
+  <nav><span>Studies</span><span>Catalogue</span><span>Atelier</span></nav>
+  <div class="status"><i id="mode">At rest</i><span id="fps" hidden></span></div>
+</header>
+<section class="tag"><div class="rule"></div><div id="tagt">Study No. 01 / The Hand</div></section>
+<aside class="hud" id="hud"></aside>
+<div class="rail" id="rail"></div>
+<section class="chap" id="chap"></section>
+<section id="rd" aria-label="Research and Development">
+  <div class="rd-in">
+    <header class="rd-open">
+      <div class="sc">Part II</div>
+      <h2>Research &amp; Development</h2>
+      <hr>
+      <p>The machine above is a study. What follows is the work behind it: how it will think, what is being researched, the order in which it will be built, and how that work is funded.</p>
+    </header>
+
+    <article class="rd-ch" id="rd-09">
+      <div class="sc">Study No. 09</div>
+      <h3>The Mind</h3>
+      <hr>
+      <p class="lede">Morph is designed to build on open vision-language-action models rather than a closed controller of its own. A camera image and a plain sentence go in, and joint commands come out.</p>
+      <figure class="ink">
+        <svg viewBox="0 0 960 300" role="img" aria-label="Perception, reasoning and action pipeline">
+          <g class="pen">
+            <rect x="20" y="96" width="150" height="92" rx="46"/><rect x="250" y="80" width="170" height="124" rx="6"/><rect x="500" y="64" width="190" height="156" rx="6"/><rect x="770" y="96" width="170" height="92" rx="46"/>
+            <path d="M170 142 C200 138 222 146 250 142"/><path d="M420 142 C450 138 472 146 500 142"/><path d="M690 142 C720 138 742 146 770 142"/>
+            <path d="M243 138 l7 4 -7 4"/><path d="M493 138 l7 4 -7 4"/><path d="M763 138 l7 4 -7 4"/>
+            <path class="dash" d="M855 188 C850 262 120 268 95 188"/><path d="M90 196 l5 -8 5 8"/>
+            <path class="faint" d="M520 100 h150 M520 116 h120 M520 132 h140"/><circle class="faint" cx="335" cy="142" r="30"/><circle class="faint" cx="335" cy="142" r="18"/>
+          </g>
+          <g class="lbl">
+            <text x="95" y="138">Camera</text><text x="95" y="158" class="i">+ instruction</text>
+            <text x="335" y="232">Vision encoder</text><text x="335" y="252" class="i">image patches → tokens</text>
+            <text x="595" y="248">Language backbone</text><text x="595" y="268" class="i">reasoning over image + text</text>
+            <text x="855" y="138">Action head</text><text x="855" y="158" class="i">joint commands</text>
+            <text x="475" y="292" class="i">the loop closes: act, observe, re-plan</text>
+          </g>
+        </svg>
+        <figcaption>Fig. 9.1 — Perception, reasoning, action. Drawn as a design target; Morph's own integration is unbuilt.</figcaption>
+      </figure>
+      <div class="cols">
+        <div class="plate-t">
+          <div class="sc">Reference I</div><h4>OpenVLA</h4>
+          <p>An open-source vision-language-action model with 7 billion parameters, released by researchers from Stanford, UC Berkeley, Google DeepMind and the Toyota Research Institute. Its visual encoder fuses DINOv2 and SigLIP features. These are projected into a Llama 2 language model that predicts robot actions as tokens. It was trained on about 970,000 robot episodes from the Open X-Embodiment dataset, and its weights and training code are public.</p>
+        </div>
+        <div class="plate-t">
+          <div class="sc">Reference II</div><h4>π0 (pi-zero)</h4>
+          <p>A vision-language-action model from Physical Intelligence, built on the open PaliGemma vision-language model. It adds a separate, smaller <em>action expert</em> trained with flow matching, which produces smooth, continuous chunks of motion rather than discrete tokens. Code and weights are open-sourced in the <em>openpi</em> repository.</p>
+        </div>
+      </div>
+      <dl class="spec">
+        <div><dt>Approach</dt><dd>Fine-tune an open VLA on Morph's own body and hand · design target</dd></div>
+        <div><dt>Inputs</dt><dd>Head cameras, joint state, spoken or written instruction · design target</dd></div>
+        <div><dt>Outputs</dt><dd>Joint and tendon commands for hand, arms and legs · design target</dd></div>
+        <div><dt>Below the model</dt><dd>Classical balance and safety controllers remain in charge of the body · design target</dd></div>
+      </dl>
+    </article>
+
+    <article class="rd-ch" id="rd-10">
+      <div class="sc">Study No. 10</div>
+      <h3>Research Program</h3>
+      <hr>
+      <p class="lede">Five open lines of inquiry. None is solved here. Each is listed with the question it asks.</p>
+      <div class="tracks">
+        <div class="track"><span class="n">i.</span><h4>Dexterous manipulation</h4><p>Can a tendon-driven hand, with its motors in the forearm, give fine and gentle control of fingertip force? The aim is a hand that holds an egg and a hammer with the same mechanism.</p><i>Open research question</i></div>
+        <div class="track"><span class="n">ii.</span><h4>Whole-body control &amp; balance</h4><p>Keeping a standing body upright while the arms reach, lift and push. Contact forces at the feet are read continuously and the posture is corrected below the level of conscious planning.</p><i>Design target</i></div>
+        <div class="track"><span class="n">iii.</span><h4>Sim-to-real training</h4><p>Most practice happens in simulation, where falling is free. The question is how much of that practice survives contact with real friction, cable stretch and sensor noise.</p><i>Open research question</i></div>
+        <div class="track"><span class="n">iv.</span><h4>Learning from demonstration</h4><p>Household tasks taught by showing rather than programming: folding, clearing, opening and carrying. Recorded demonstrations become fine-tuning data for the model in Study No. 09.</p><i>Design target</i></div>
+        <div class="track"><span class="n">v.</span><h4>Safety &amp; compliance</h4><p>Backdrivable joints, torque limits and an always-available stop, so the machine yields when it touches a person. Safety is treated as a property of the hardware first and of software second.</p><i>Design target</i></div>
+      </div>
+      <figure class="plates2">
+        <div class="frame"><img src="img/hand.jpg?v=9" alt="Study photograph of a robotic hand" loading="lazy"></div>
+        <div class="frame"><img src="img/head.jpg?v=9" alt="Study photograph of a robot head" loading="lazy"></div>
+        <figcaption>Pl. 10.1–10.2 — Studio studies, hand and head. Concept imagery, not a built prototype.</figcaption>
+      </figure>
+    </article>
+
+    <article class="rd-ch" id="rd-11">
+      <div class="sc">Study No. 11</div>
+      <h3>Development Roadmap</h3>
+      <hr>
+      <p class="lede">Planned milestones, in order. They carry no dates, because each depends on the one before it.</p>
+      <figure class="ink road">
+        <svg viewBox="0 0 960 150" role="img" aria-label="Milestone timeline M1 to M6">
+          <g class="pen"><path d="M30 70 C200 66 330 75 480 70 S760 66 930 71"/>
+            <g class="tk"><circle cx="70" cy="70" r="6"/><circle cx="242" cy="70" r="6"/><circle cx="414" cy="71" r="6"/><circle cx="586" cy="70" r="6"/><circle cx="758" cy="69" r="6"/><circle cx="900" cy="71" r="6"/></g>
+            <path class="faint" d="M70 52 v-22 M242 52 v-22 M414 53 v-22 M586 52 v-22 M758 51 v-22 M900 53 v-22"/></g>
+          <g class="lbl"><text x="70" y="22">M1</text><text x="242" y="22">M2</text><text x="414" y="22">M3</text><text x="586" y="22">M4</text><text x="758" y="22">M5</text><text x="900" y="22">M6</text>
+            <text x="70" y="104" class="i">Hand</text><text x="242" y="104" class="i">Forearm + wrist</text><text x="414" y="104" class="i">Upper body</text><text x="586" y="104" class="i">VLA integration</text><text x="758" y="104" class="i">Full humanoid</text><text x="900" y="104" class="i">Home pilot</text></g>
+        </svg>
+        <figcaption>Fig. 11.1 — Planned milestones. Not a schedule.</figcaption>
+      </figure>
+      <div class="miles">
+        <div><b>M1</b><h4>Hand prototype</h4><p>The tendon-driven hand of Study No. 01, built and tested on a bench.</p></div>
+        <div><b>M2</b><h4>Forearm + wrist</h4><p>Moving the finger drives into the forearm and adding wrist motion.</p></div>
+        <div><b>M3</b><h4>Upper body</h4><p>Elbow, shoulder and torso: two arms working together on a fixed stand.</p></div>
+        <div><b>M4</b><h4>VLA integration</h4><p>An open vision-language-action model directing the upper body from camera and instruction.</p></div>
+        <div><b>M5</b><h4>Full humanoid</h4><p>Pelvis and legs, standing balance and walking.</p></div>
+        <div><b>M6</b><h4>Home pilot</h4><p>Supervised trials of simple household tasks in a real home.</p></div>
+      </div>
+    </article>
+
+    <article class="rd-ch" id="rd-12">
+      <div class="sc">Study No. 12</div>
+      <h3>Tokenized R&amp;D</h3>
+      <hr>
+      <p class="lede">The research is funded in the open. Creator fees from trading in the project's token flow into a research treasury. The treasury funds the milestones above one at a time, and each result is published.</p>
+      <figure class="ink">
+        <svg viewBox="0 0 960 170" role="img" aria-label="Funding flow from trading to open research releases">
+          <g class="pen">
+            <ellipse cx="90" cy="80" rx="70" ry="34"/><ellipse cx="280" cy="80" rx="80" ry="34"/><rect x="390" y="44" width="180" height="72" rx="4"/><ellipse cx="680" cy="80" rx="74" ry="34"/><ellipse cx="868" cy="80" rx="80" ry="34"/>
+            <path d="M160 80 C176 77 188 83 200 80"/><path d="M360 80 C372 77 380 83 390 80"/><path d="M570 80 C584 77 594 83 606 80"/><path d="M754 80 C768 77 778 83 788 80"/>
+            <path d="M194 76 l6 4 -6 4"/><path d="M384 76 l6 4 -6 4"/><path d="M600 76 l6 4 -6 4"/><path d="M782 76 l6 4 -6 4"/>
+            <path class="faint" d="M398 54 h164 M398 106 h164"/>
+          </g>
+          <g class="lbl"><text x="90" y="85">Trading</text><text x="280" y="85">Creator fees</text><text x="480" y="85">Research treasury</text><text x="680" y="85">Milestones</text><text x="868" y="78">Open research</text><text x="868" y="96">releases</text>
+            <text x="480" y="150" class="i">each milestone funded, built and published in turn</text></g>
+        </svg>
+        <figcaption>Fig. 12.1 — Flow of funds, in principle.</figcaption>
+      </figure>
+      <div class="cols">
+        <div class="plate-t"><div class="sc">Principle</div><h4>Funded in order</h4><p>The treasury pays for one milestone at a time. The next is not begun until the last is published.</p></div>
+        <div class="plate-t"><div class="sc">Principle</div><h4>Published openly</h4><p>Designs, findings and failures from each milestone are released for anyone to study.</p></div>
+      </div>
+      <p class="disc">Morph is an experimental research project. Nothing here is financial advice or a promise of any return.</p>
+      <figure class="plates2">
+        <div class="frame"><img src="img/front.jpg?v=9" alt="Study photograph, front" loading="lazy"></div>
+        <div class="frame"><img src="img/back.jpg?v=9" alt="Study photograph, back" loading="lazy"></div>
+        <figcaption>Pl. 12.1–12.2 — Front and back studies. Concept imagery.</figcaption>
+      </figure>
+    </article>
+
+    <article class="rd-ch rd-close" id="rd-13">
+      <div class="markwrap"><img class="markimg" src="img/morph-mark.jpg?v=9" alt="Morph mark" style="width:min(460px,70vw);height:auto;display:block;margin:0 auto;mix-blend-mode:multiply"></div>
+      <div class="word">morph</div>
+      <div class="sc">Studies in actuated form</div>
+      <p class="back">Scroll up to return to the machine.</p>
+    </article>
+  </div>
+</section>
+
+<div class="hint" id="hint">Scroll to assemble the hand</div>
+<footer class="foot"><span id="clock">Studies in actuated form · MMXXVI</span></footer>
+<script type="module" src="main.js?v=9"></script>
+</body></html>
