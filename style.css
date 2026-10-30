@@ -93,3 +93,5 @@ nav{display:flex;gap:40px;font-size:15px;font-style:italic;color:var(--ink2)}nav
 
 nav a.xl{color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(42,39,35,.3);padding-bottom:1px}nav a.xl:hover{color:var(--ink)}
 .xclose{margin-top:28px;font-size:15px;font-style:italic}.xclose a{color:var(--ink2);text-decoration:none;border-bottom:1px solid rgba(42,39,35,.3)}
+
+nav a.nl{border-bottom-color:transparent}nav a.nl:hover{border-bottom-color:rgba(42,39,35,.3)}.deeper{margin-top:26px;font-style:italic;font-size:17px;color:var(--ink2)}.deeper a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--ink2)}

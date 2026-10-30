@@ -2,15 +2,15 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Morph — Studies in Actuated Form</title>
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=12">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
 </head><body>
 <div class="linen"></div><div class="light"></div><div class="shade"></div>
 <canvas id="gl"></canvas>
 <svg id="leaders"></svg><div id="labels"></div>
 <header class="bar">
-  <div class="mark">Morph</div>
-  <nav><span>Studies</span><span>Catalogue</span><span>Atelier</span><a class="xl" href="https://x.com/morphrobots" target="_blank" rel="noopener">@morphrobots</a></nav>
+  <a class="mark" href="index.html" style="text-decoration:none">Morph</a>
+  <nav><a class="xl nl" href="studies.html">Studies</a><a class="xl nl" href="catalogue.html">Catalogue</a><a class="xl nl" href="atelier.html">Atelier</a><a class="xl" href="https://x.com/morphrobots" target="_blank" rel="noopener">@morphrobots</a></nav>
   <div class="status"><i id="mode">At rest</i><span id="fps" hidden></span></div>
 </header>
 <section class="tag"><div class="rule"></div><div id="tagt">Study No. 01 / The Hand</div></section>
@@ -66,6 +66,7 @@
         <div><dt>Outputs</dt><dd>Joint and tendon commands for hand, arms and legs · design target</dd></div>
         <div><dt>Below the model</dt><dd>Classical balance and safety controllers remain in charge of the body · design target</dd></div>
       </dl>
+    <p class="deeper"><a href="studies.html#brain">Read further · Study 05, The Brain</a> · <a href="catalogue.html?k=Model">Models in the Catalogue</a></p>
     </article>
 
     <article class="rd-ch" id="rd-10">
@@ -85,6 +86,7 @@
         <div class="frame"><img src="img/head.jpg?v=10" alt="Study photograph of a robot head" loading="lazy"></div>
         <figcaption>Pl. 10.1–10.2 — Studio studies, hand and head. Concept imagery, not a built prototype.</figcaption>
       </figure>
+    <p class="deeper"><a href="atelier.html#milestones">Read further · the Atelier programme</a> · <a href="studies.html">All studies</a></p>
     </article>
 
     <article class="rd-ch" id="rd-11">
@@ -110,13 +112,14 @@
         <div><b>M5</b><h4>Full humanoid</h4><p>Pelvis and legs, standing balance and walking.</p></div>
         <div><b>M6</b><h4>Home pilot</h4><p>Supervised trials of simple household tasks in a real home.</p></div>
       </div>
+    <p class="deeper"><a href="atelier.html#m1">Read further · M1 to M6 in detail</a> · <a href="studies.html#hands">Study 01, The Hand</a></p>
     </article>
 
     <article class="rd-ch" id="rd-12">
       <div class="sc">Study No. 12</div>
       <h3>Tokenized R&amp;D</h3>
       <hr>
-      <p class="lede">The research is funded in the open. Creator fees from trading in the project's token flow into a research treasury. The treasury funds the milestones above one at a time, and each result is published.</p>
+      <p class="lede">The research is funded in the open. Creator fees from trading in the project's token go to the project's development wallet and fund the milestones above one at a time, and each result is published.</p>
       <figure class="ink">
         <svg viewBox="0 0 960 170" role="img" aria-label="Funding flow from trading to open research releases">
           <g class="pen">
@@ -125,13 +128,13 @@
             <path d="M194 76 l6 4 -6 4"/><path d="M384 76 l6 4 -6 4"/><path d="M600 76 l6 4 -6 4"/><path d="M782 76 l6 4 -6 4"/>
             <path class="faint" d="M398 54 h164 M398 106 h164"/>
           </g>
-          <g class="lbl"><text x="90" y="85">Trading</text><text x="280" y="85">Creator fees</text><text x="480" y="85">Research treasury</text><text x="680" y="85">Milestones</text><text x="868" y="78">Open research</text><text x="868" y="96">releases</text>
+          <g class="lbl"><text x="90" y="85">Trading</text><text x="280" y="85">Creator fees</text><text x="480" y="85">Dev wallet</text><text x="680" y="85">Milestones</text><text x="868" y="78">Open research</text><text x="868" y="96">releases</text>
             <text x="480" y="150" class="i">each milestone funded, built and published in turn</text></g>
         </svg>
         <figcaption>Fig. 12.1 — Flow of funds, in principle.</figcaption>
       </figure>
       <div class="cols">
-        <div class="plate-t"><div class="sc">Principle</div><h4>Funded in order</h4><p>The treasury pays for one milestone at a time. The next is not begun until the last is published.</p></div>
+        <div class="plate-t"><div class="sc">Principle</div><h4>Funded in order</h4><p>Fees pay for one milestone at a time. The next is not begun until the last is published.</p></div>
         <div class="plate-t"><div class="sc">Principle</div><h4>Published openly</h4><p>Designs, findings and failures from each milestone are released for anyone to study.</p></div>
       </div>
       <p class="disc">Morph is an experimental research project. Nothing here is financial advice or a promise of any return.</p>
@@ -140,6 +143,7 @@
         <div class="frame"><img src="img/back.jpg?v=10" alt="Study photograph, back" loading="lazy"></div>
         <figcaption>Pl. 12.1–12.2 — Front and back studies. Concept imagery.</figcaption>
       </figure>
+    <p class="deeper"><a href="atelier.html#funding">Read further · Tokenized R&amp;D</a></p>
     </article>
 
     <article class="rd-ch rd-close" id="rd-13">
@@ -154,5 +158,5 @@
 
 <div class="hint" id="hint">Scroll to assemble the hand</div>
 <footer class="foot"><span id="clock">Studies in actuated form · MMXXVI</span></footer>
-<script type="module" src="main.js?v=10"></script>
+<script type="module" src="main.js?v=12"></script>
 </body></html>

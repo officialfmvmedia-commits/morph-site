@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morph — Atelier</title><meta name="description" content="The Morph research programme: milestones, lab log, open questions, funding and reading chains.">
+<link rel="icon" href="data:,"><link rel="stylesheet" href="lab.css?v=12">
+</head><body><div class="linen"></div><div class="shade"></div>
+<header class="bar"><a class="mark" href="index.html">Morph</a>
+<nav><a href="studies.html">Studies</a><a href="catalogue.html">Catalogue</a><a href="atelier.html" class="on">Atelier</a><a href="https://x.com/morphrobots" target="_blank" rel="noopener">@morphrobots</a></nav></header>
+<main>
+<div class="sc">Morph · Atelier</div>
+<h1>Atelier</h1>
+<p class="lede">The lab itself: what we intend to build, in what order, how we will know if it worked, and how the work is paid for. Everything on this page about Morph is a <span class="dt">design target</span> — a plan, not a result.</p>
+<ol class="toc">
+<li><a href="#program">The programme</a> <i>· principles</i></li><li><a href="#milestones">Milestones M1–M6</a> <i>· experiments and exit criteria</i></li>
+<li><a href="#log">Lab log</a> <i>· what has actually happened</i></li><li><a href="#questions">Open questions</a></li>
+<li><a href="#funding">Tokenized R&amp;D</a> <i>· how the work is funded</i></li><li><a href="#reading">Reading chains</a></li>
+<li><a href="#glossary">Glossary</a></li></ol>
+
+<section class="study" id="program"><div class="sc">I</div><h2>The programme</h2>
+<div class="cols">
+<div class="card"><h4>Build on open work</h4><p>We start from published, reproducible designs — the <a data-c="leap-hand">LEAP Hand</a>, <a data-c="lerobot">LeRobot</a>, <a data-c="openpi">openpi</a>, <a data-c="isaac-lab">Isaac Lab</a> — rather than inventing what already exists.</p></div>
+<div class="card"><h4>Upper body first</h4><p>Most household value is in hands and arms. Legs come last (<a href="#m5">M5</a>), following the reasoning in <a href="studies.html#body">Study 04</a>.</p></div>
+<div class="card"><h4>Publish everything</h4><p>CAD, code, data and failures are released at the end of each milestone, so the work can be checked.</p></div>
+<div class="card"><h4>One milestone at a time</h4><p>The next milestone is not begun until the last is published.</p></div>
+</div></section>
+
+<section class="study" id="milestones"><div class="sc">II</div><h2>Milestones</h2>
+<p>Each milestone is an experiment with a question, a method built on cited prior work, and an exit criterion. No costs or dates are given: we have not sourced numbers we can stand behind, and we would rather print none than invent them.</p>
+
+<div class="mil" id="m1"><b>M1</b><div><h3 style="margin-top:0">Hand prototype <span class="dt">design target</span></h3>
+<p><i>Question:</i> can a LEAP-style direct-drive hand be modified to move its heaviest actuators into a forearm without losing the controllability that makes LEAP useful for learning?</p>
+<ul><li>Build a stock <a data-c="leap-hand">LEAP Hand</a> from its published design as a baseline.</li><li>Build a variant with tendon-driven flexion for two fingers (<a data-g="tendon">tendon drive</a>, as in the <a data-c="shadow-hand">Shadow Hand</a>).</li><li>Measure fingertip force, repeatability and finger mass on a bench for both.</li><li>Add a fingertip <a data-c="digit">DIGIT</a> or <a data-c="anyskin">AnySkin</a> sensor to one finger (<a href="studies.html#tactile">Study 02</a>).</li></ul>
+<p><i>Exit:</i> published CAD, bill of materials and the bench comparison, whichever design wins.</p></div></div>
+
+<div class="mil" id="m2"><b>M2</b><div><h3 style="margin-top:0">Forearm + wrist <span class="dt">design target</span></h3>
+<p><i>Question:</i> what wrist drive gives enough torque while staying <a data-g="backdrive">backdrivable</a>?</p>
+<ul><li>Compare a <a data-g="qdd">quasi-direct-drive</a> wrist (<a data-c="mit-cheetah-act">MIT Cheetah</a> style) to a <a data-c="cycloidal">cycloidal</a> one.</li><li>Test contact force against <a data-c="ts15066">ISO/TS 15066</a> limits for hand and arm.</li></ul>
+<p><i>Exit:</i> a 3-DoF wrist carrying the M1 hand, with published test data.</p></div></div>
+
+<div class="mil" id="m3"><b>M3</b><div><h3 style="margin-top:0">Upper body + teleop rig <span class="dt">design target</span></h3>
+<p><i>Question:</i> can we collect useful household demonstrations cheaply?</p>
+<ul><li>Two arms on a fixed stand, teleoperated with an <a data-c="aloha">ALOHA</a>-style leader/follower setup.</li><li>Record in <a data-c="lerobot">LeRobot</a> format; add handheld <a data-c="umi">UMI</a>-style collection for robot-free data.</li><li>Target tasks drawn from <a data-c="behavior">BEHAVIOR-1K</a>: folding, wiping, loading a dishwasher.</li></ul>
+<p><i>Exit:</i> an openly licensed dataset of household episodes, collected with consent and scrubbed of personal information.</p></div></div>
+
+<div class="mil" id="m4"><b>M4</b><div><h3 style="margin-top:0">VLA integration <span class="dt">design target</span></h3>
+<p><i>Question:</i> how much of our own data does an open <a data-g="vla">VLA</a> need before it handles our tasks?</p>
+<ul><li>Fine-tune <a data-c="pi0">π0</a> / <a data-c="pi05">π0.5</a> via <a data-c="openpi">openpi</a> on M3 data; compare against <a data-c="openvla-oft">OpenVLA-OFT</a> and an <a data-c="act">ACT</a> baseline.</li><li>Sweep demonstration count per task; report success curves.</li><li>Sanity-check the pipeline on <a data-c="libero">LIBERO</a> first so results are comparable with published numbers.</li></ul>
+<p><i>Exit:</i> released fine-tuned weights, eval scripts and a report including failures.</p></div></div>
+
+<div class="mil" id="m5"><b>M5</b><div><h3 style="margin-top:0">Full humanoid <span class="dt">design target</span></h3>
+<p><i>Question:</i> can learned locomotion carry the upper body safely?</p>
+<ul><li>Train walking and standing balance in <a data-c="isaac-lab">Isaac Lab</a> or <a data-c="mjx">MJX</a> with <a data-c="domain-rand">domain randomization</a>, following <a data-c="legged-gym">Rudin et al.</a> and <a data-c="real-humanoid-rl">Radosavovic et al.</a></li><li>Evaluate on an open platform such as <a data-c="unitree-g1">Unitree G1</a> before custom legs.</li></ul>
+<p><i>Exit:</i> sim-to-real report and released policy.</p></div></div>
+
+<div class="mil" id="m6"><b>M6</b><div><h3 style="margin-top:0">Home pilot <span class="dt">design target</span></h3>
+<p><i>Question:</i> what goes wrong in a real home?</p>
+<ul><li>Supervised trials only: a person present and a physical stop at all times.</li><li>Score semantic safety with <a data-c="asimov">ASIMOV</a>-style scenarios and follow <a data-c="iso13482">ISO 13482</a> as the design reference.</li></ul>
+<p><i>Exit:</i> a public incident and failure log alongside success rates.</p></div></div>
+</section>
+
+<section class="study" id="log"><div class="sc">III</div><h2>Lab log</h2>
+<p>Only things that have actually happened are recorded here.</p>
+<ul class="log">
+<li><time>Oct 2026</time>Studies 01–07 and the Catalogue published: a sourced review of hands, touch, actuation, locomotion, VLA models, data and safety.</li>
+<li><time>Oct 2026</time>Research programme M1–M6 defined as design targets.</li>
+<li><time>Next</time>Begin M1: source parts for a baseline LEAP Hand build.</li>
+</ul></section>
+
+<section class="study" id="questions"><div class="sc">IV</div><h2>Open questions</h2>
+<ol class="refs" style="font-size:18px">
+<li>How long do vision-based and magnetic tactile skins last under household wear — water, detergent, heat? We found no long-term published study. (<a href="studies.html#tactile">Study 02</a>)</li>
+<li>Is the finger-mass saving of tendons worth their friction and maintenance in a home robot? (<a href="studies.html#hands">Study 01</a>)</li>
+<li>How many household demonstrations per task does a fine-tuned π0.5 or OpenVLA-OFT need on a new embodiment? (<a href="#m4">M4</a>)</li>
+<li>Can robot-free collection (<a data-c="umi">UMI</a>) replace most teleoperation for dexterous hands, not just grippers?</li>
+<li>What is a fair, reproducible home benchmark — and how do we report failures honestly? (<a href="studies.html#safety">Study 07</a>)</li>
+</ol></section>
+
+<section class="study" id="funding"><div class="sc">V</div><h2>Tokenized R&amp;D</h2>
+<p class="lede">The research is funded in the open. Creator fees from trading in the project's token go to the project's development wallet and pay for the milestones above, one at a time.</p>
+<figure class="ink"><svg viewBox="0 0 960 150" role="img" aria-label="Funding flow">
+<g class="pen"><ellipse cx="100" cy="70" rx="80" ry="32"/><ellipse cx="300" cy="70" rx="90" ry="32"/><rect x="410" y="38" width="160" height="64" rx="4"/><ellipse cx="680" cy="70" rx="80" ry="32"/><ellipse cx="870" cy="70" rx="80" ry="32"/>
+<path d="M180 70h30M390 70h20M570 70h30M760 70h30"/></g>
+<g class="lbl"><text x="100" y="75">Trading</text><text x="300" y="75">Creator fees</text><text x="490" y="75">Dev wallet</text><text x="680" y="75">Milestone</text><text x="870" y="75">Open release</text><text x="480" y="135" class="i">funded, built and published in turn</text></g></svg>
+<figcaption>Fig. V.1 — Flow of funds, in principle.</figcaption></figure>
+<div class="cols"><div class="card"><h4>Funded in order</h4><p>One milestone at a time. The next begins after the last is published.</p></div><div class="card"><h4>Published openly</h4><p>Designs, data, weights and failures from each milestone are released.</p></div><div class="card"><h4>No promises</h4><p>Research can fail. A milestone that fails is still published as a result.</p></div></div>
+<p class="disc">Morph is an experimental research project. Nothing here is financial advice or a promise of any return.</p></section>
+
+<section class="study" id="reading"><div class="sc">VI</div><h2>Reading chains</h2>
+<p>Follow a chain from first paper to frontier. Each link opens its catalogue entry.</p>
+<div class="cols">
+<div class="card"><h4>From tokens to VLAs</h4><p><a data-c="rt1">RT-1</a> → <a data-c="rt2">RT-2</a> → <a data-c="oxe">Open X-Embodiment</a> → <a data-c="openvla">OpenVLA</a> → <a data-c="openvla-oft">OpenVLA-OFT</a></p></div>
+<div class="card"><h4>Flow-matching brains</h4><p><a data-c="diffusion-policy">Diffusion Policy</a> → <a data-c="flow">Flow Matching</a> → <a data-c="pi0">π0</a> → <a data-c="fast">FAST</a> → <a data-c="pi05">π0.5</a> → <a data-c="groot-n1">GR00T N1</a></p></div>
+<div class="card"><h4>Cheap hands, cheap data</h4><p><a data-c="aloha">ALOHA</a> → <a data-c="act">ACT</a> → <a data-c="mobile-aloha">Mobile ALOHA</a> → <a data-c="umi">UMI</a> → <a data-c="leap-hand">LEAP Hand</a> → <a data-c="lerobot">LeRobot</a></p></div>
+<div class="card"><h4>Learning to move</h4><p><a data-c="domain-rand">Domain randomization</a> → <a data-c="dexterity-rl">In-hand manipulation</a> → <a data-c="dactyl">Dactyl</a> → <a data-c="legged-gym">Walk in minutes</a> → <a data-c="real-humanoid-rl">Humanoid RL</a> → <a data-c="humanplus">HumanPlus</a></p></div>
+<div class="card"><h4>Touch</h4><p><a data-c="gelsight">GelSight</a> → <a data-c="digit">DIGIT</a> → <a data-c="digit360">Digit 360</a>; <a data-c="reskin">ReSkin</a> → <a data-c="anyskin">AnySkin</a></p></div>
+<div class="card"><h4>Safety</h4><p><a data-c="iso10218">ISO 10218</a> → <a data-c="ts15066">ISO/TS 15066</a> → <a data-c="iso13482">ISO 13482</a> → <a data-c="asimov">ASIMOV</a></p></div>
+</div></section>
+
+<section class="study" id="glossary"><div class="sc">VII</div><h2>Glossary</h2><dl class="glo" id="glo"></dl></section>
+</main>
+<footer><span>Morph · Studies in actuated form · MMXXVI</span><span><a href="index.html">The machine</a> · <a href="studies.html">Studies</a> · <a href="catalogue.html">Catalogue</a> · <a href="atelier.html">Atelier</a> · <a href="atelier.html#glossary">Glossary</a></span><span>Experimental research project. Not financial advice.</span></footer>
+<script src="data/catalogue.js?v=12"></script><script src="lab.js?v=12"></script>
+<script>(()=>{const {esc}=MorphLab;document.getElementById('glo').innerHTML=GLOSS.map(g=>`<dt id="g-${g.id}">${esc(g.t)}</dt><dd>${esc(g.d)} ${g.st?`<a href="studies.html#${g.st}">Study →</a>`:''} ${g.at?`<a href="#${g.at}">Milestone →</a>`:''} ${(g.c||[]).map(c=>`<a href="catalogue.html#${c}" data-c="${c}" data-pv="c">${esc(MorphLab.C[c].n)}</a>`).join(' · ')}</dd>`).join('');if(location.hash.startsWith('#g-'))document.querySelector(location.hash)?.scrollIntoView()})();</script>
+</body></html>

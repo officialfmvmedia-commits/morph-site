@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morph — Studies</title><meta name="description" content="Sourced research studies on dexterous hands, touch, actuators, locomotion, VLA models, robot data and safety.">
+<link rel="icon" href="data:,"><link rel="stylesheet" href="lab.css?v=12">
+</head><body><div class="linen"></div><div class="shade"></div>
+<header class="bar"><a class="mark" href="index.html">Morph</a>
+<nav><a href="studies.html" class="on">Studies</a><a href="catalogue.html">Catalogue</a><a href="atelier.html">Atelier</a><a href="https://x.com/morphrobots" target="_blank" rel="noopener">@morphrobots</a></nav></header>
+<main>
+<div class="sc">Morph · Studies</div>
+<h1>Studies</h1>
+<p class="lede">Seven long-form studies on what it takes to build a household humanoid: the hand, its skin, its muscles, its body, its brain, its data, and how to know it is safe. Every claim about other people's work is drawn from the linked source. Anything about Morph itself is a <span class="dt">design target</span>.</p>
+<ol class="toc">
+<li><a href="#hands">No. 01 — The Hand</a> <i>· tendons, motors, degrees of freedom</i></li>
+<li><a href="#tactile">No. 02 — Touch</a> <i>· vision-based and magnetic skins</i></li>
+<li><a href="#actuators">No. 03 — Muscle</a> <i>· gearboxes and quasi-direct drive</i></li>
+<li><a href="#body">No. 04 — The Body</a> <i>· locomotion and sim-to-real</i></li>
+<li><a href="#brain">No. 05 — The Brain</a> <i>· vision-language-action models</i></li>
+<li><a href="#data">No. 06 — Data</a> <i>· teleoperation, video, simulation</i></li>
+<li><a href="#safety">No. 07 — Safety &amp; Evaluation</a> <i>· benchmarks and standards</i></li>
+<li><a href="#references">References</a> <i>· all sources, numbered</i></li>
+</ol>
+
+<!-- 01 -->
+<section class="study" id="hands">
+<div class="sc">Study No. 01</div><h2>The Hand</h2>
+<p class="lede">The hand is where a humanoid either becomes useful or remains a demonstration. Three design families dominate, and each trades finger mass, force, and fidelity differently.</p>
+<p>A human hand is commonly described as having around 27 <a data-g="dof">degrees of freedom</a> counting the wrist. No robot hand matches it fully. The research reference, the <a data-c="shadow-hand">Shadow Dexterous Hand</a>, reaches 24 joints, 20 of them actuated, by putting the motors in the forearm and pulling the fingers with <a data-g="tendon">tendons</a><sup class="fn"><a href="#r1">1</a></sup>. It was the hand OpenAI used to solve a Rubik's cube one-handed with a policy trained entirely in simulation<sup class="fn"><a href="#r2">2</a></sup>.</p>
+<p>The opposite approach puts a motor in or next to every joint. The <a data-c="allegro-hand">Allegro Hand</a> and Carnegie Mellon's open <a data-c="leap-hand">LEAP Hand</a> both use 16 <a data-g="direct-drive">direct-drive</a> joints. LEAP's paper reports it can be built for about 2,000 USD in parts and assembled in roughly four hours<sup class="fn"><a href="#r3">3</a></sup>, which is why it has become the default hand in academic learning labs.</p>
+<p>A third family is <a data-g="underactuation">underactuated</a>: fewer motors than joints, with linkages coupling each finger's curl. The <a data-c="inspire-hand">Inspire RH56</a> drives 12 joints with 6 actuators<sup class="fn"><a href="#r4">4</a></sup>. It is compact and robust, and cannot move each finger joint independently.</p>
+<figure class="ink"><svg viewBox="0 0 960 250" role="img" aria-label="Three hand drive families">
+<g class="pen"><rect x="40" y="40" width="250" height="150" rx="4"/><rect x="355" y="40" width="250" height="150" rx="4"/><rect x="670" y="40" width="250" height="150" rx="4"/>
+<path d="M70 150h70M70 150c40-30 90-60 190-80"/><circle cx="90" cy="160" r="12"/><circle cx="120" cy="160" r="12"/><path class="faint" d="M100 160 L260 70"/>
+<path d="M385 160 h40 l40 -30 l40 -20 l40 -10"/><circle cx="425" cy="160" r="9" class="fill"/><circle cx="465" cy="130" r="9" class="fill"/><circle cx="505" cy="110" r="9" class="fill"/><circle cx="545" cy="100" r="9" class="fill"/>
+<path d="M700 160 h40 l40 -30 l40 -20 l40 -10"/><circle cx="740" cy="160" r="10" class="fill"/><path class="faint" d="M740 160 L780 130 L820 110 L860 100"/><path d="M760 170 l60 -40"/></g>
+<g class="lbl"><text x="165" y="30">Tendon-driven</text><text x="480" y="30">Direct drive (motor per joint)</text><text x="795" y="30">Underactuated linkage</text>
+<text x="165" y="215" class="i">light fingers · friction, stretch</text><text x="480" y="215" class="i">simple, stiff · heavier fingers</text><text x="795" y="215" class="i">few motors · coupled motion</text>
+<text x="165" y="236" class="i">e.g. Shadow Hand</text><text x="480" y="236" class="i">e.g. LEAP, Allegro</text><text x="795" y="236" class="i">e.g. Inspire RH56</text></g></svg>
+<figcaption>Fig. 01.1 — Three ways to move a finger. Schematic, not to scale.</figcaption></figure>
+<h3>Industry hands, as publicly stated</h3>
+<p>Commercial humanoid programmes publish little. Tesla's December 2023 Optimus Gen 2 video listed "11-DoF brand-new hands" with tactile sensing on all fingers<sup class="fn"><a href="#r5">5</a></sup>. In November 2024 Tesla engineer Milan Kovac posted that a new hand had 22 DoF in the hand and 3 in the wrist and forearm, and that the demo was teleoperated<sup class="fn"><a href="#r6">6</a></sup>. Figure's <a data-c="helix">Helix</a> post describes finger flexion and abduction inside a 35-DoF upper-body action space<sup class="fn"><a href="#r7">7</a></sup>. These are company statements, not peer-reviewed specifications.</p>
+<div class="tw"><table><thead><tr><th>Hand</th><th>Drive</th><th>DoF / actuators</th><th>Source type</th></tr></thead><tbody>
+<tr><td><a data-c="shadow-hand">Shadow</a></td><td>Tendon, forearm motors</td><td>24 joints / 20 actuated</td><td>Manufacturer</td></tr>
+<tr><td><a data-c="leap-hand">LEAP</a></td><td>Direct (servos)</td><td>16 / 16</td><td>Peer-reviewed paper</td></tr>
+<tr><td><a data-c="allegro-hand">Allegro</a></td><td>Direct, motors in links</td><td>16 / 16</td><td>Manufacturer</td></tr>
+<tr><td><a data-c="inspire-hand">Inspire RH56</a></td><td>Linear actuators + linkages</td><td>12 joints / 6 actuators</td><td>Manufacturer</td></tr>
+<tr><td><a data-c="optimus-hand">Optimus (2024)</a></td><td>Not published</td><td>22 hand + 3 wrist (stated)</td><td>Engineer's post</td></tr>
+</tbody></table></div>
+<p class="note">Morph's position <span class="dt">design target</span>: begin with a LEAP-style direct-drive hand because it is cheap, reproducible and well studied, then test whether moving actuators into the forearm with tendons reduces finger mass enough to matter. See <a href="atelier.html#m1">Milestone M1</a>.</p>
+<div class="seealso"><b>See also</b><a href="#actuators">Study 03 · Muscle</a><a href="#tactile">Study 02 · Touch</a><a data-c="dactyl">Dactyl</a><a href="catalogue.html?k=Hand">All hands in the Catalogue</a></div>
+</section>
+
+<!-- 02 -->
+<section class="study" id="tactile">
+<div class="sc">Study No. 02</div><h2>Touch</h2>
+<p class="lede">Cameras see the cup. Only skin knows it is slipping.</p>
+<p>Two families of <a data-g="tactile">tactile sensor</a> lead robot research. <b>Vision-based</b> sensors put a small camera behind a soft coated gel; when the gel presses on something, the camera sees its shape. <a data-c="gelsight">GelSight</a> established the approach and measures fine geometry and shear<sup class="fn"><a href="#r8">8</a></sup>. Meta's <a data-c="digit">DIGIT</a> shrank it into a low-cost fingertip<sup class="fn"><a href="#r9">9</a></sup>, and <a data-c="digit360">Digit 360</a> later made it fingertip-shaped and multimodal<sup class="fn"><a href="#r10">10</a></sup>.</p>
+<p><b>Magnetic</b> skins embed magnetic particles in an elastomer over a board of magnetometers. <a data-c="reskin">ReSkin</a> is thin and replaceable<sup class="fn"><a href="#r11">11</a></sup>; <a data-c="anyskin">AnySkin</a> focuses on swapping a worn skin without retraining<sup class="fn"><a href="#r12">12</a></sup>. For a household hand that will wear out, swappability matters.</p>
+<figure class="ink"><svg viewBox="0 0 960 200" role="img" aria-label="Vision-based vs magnetic tactile sensors">
+<g class="pen"><path d="M80 60 h260 v90 h-260z"/><path d="M80 60 q130 -40 260 0"/><circle cx="210" cy="130" r="14"/><path class="faint" d="M210 116 L150 70 M210 116 L270 70"/>
+<path d="M600 100 h280"/><path d="M600 100 q140 -30 280 0" /><rect x="600" y="120" width="280" height="22"/><g class="fill2"><circle cx="650" cy="92" r="4"/><circle cx="700" cy="86" r="4"/><circle cx="760" cy="84" r="4"/><circle cx="820" cy="88" r="4"/></g></g>
+<g class="lbl"><text x="210" y="30">Vision-based (GelSight, DIGIT)</text><text x="210" y="180" class="i">gel + camera → contact image</text><text x="740" y="50">Magnetic (ReSkin, AnySkin)</text><text x="740" y="170" class="i">particles in elastomer · magnetometers below</text></g></svg>
+<figcaption>Fig. 02.1 — The two leading tactile principles.</figcaption></figure>
+<p class="note">Open question for Morph: which sensor survives months of dishwater and laundry? We have found no published long-term household durability study. That gap is a candidate experiment (<a href="atelier.html#questions">Open questions</a>).</p>
+<div class="seealso"><b>See also</b><a href="#hands">Study 01 · The Hand</a><a href="catalogue.html?k=Sensor">All sensors</a><a data-g="tactile">Glossary · tactile sensing</a></div>
+</section>
+
+<!-- 03 -->
+<section class="study" id="actuators">
+<div class="sc">Study No. 03</div><h2>Muscle</h2>
+<p class="lede">A joint is a motor and a gearbox, and the gear ratio decides whether the robot can feel what it touches.</p>
+<p>High gear ratios give a small motor large torque. The cost is <a data-g="backdrive">backdrivability</a>: push on the limb and the gearbox resists. <a data-c="harmonic">Harmonic (strain-wave) drives</a> reach high ratios in a single near-zero-backlash stage<sup class="fn"><a href="#r13">13</a></sup>; <a data-c="cycloidal">cycloidal drives</a> tolerate shock well; <a data-c="planetary">planetary</a> gearsets are backdrivable at low ratio.</p>
+<p>MIT's Cheetah work made the case for <a data-g="qdd">quasi-direct drive</a>: a large-diameter brushless motor with a low-ratio planetary stage, so joint torque can be estimated from motor current and impacts pass back into the motor rather than breaking teeth<sup class="fn"><a href="#r14">14</a></sup>. The low-cost <a data-c="mini-cheetah">Mini Cheetah</a> showed this at small scale<sup class="fn"><a href="#r15">15</a></sup>. An older alternative, the <a data-c="sea">series elastic actuator</a>, inserts a spring and measures its deflection<sup class="fn"><a href="#r16">16</a></sup>.</p>
+<figure class="ink"><svg viewBox="0 0 960 230" role="img" aria-label="Gear ratio trade-off">
+<g class="pen"><path d="M90 190 H880 M90 190 V30"/><path d="M110 60 C300 70 520 130 860 175"/><path class="faint" d="M110 175 C300 165 520 110 860 55"/></g>
+<g class="fill"><circle cx="170" cy="64" r="5"/><circle cx="460" cy="118" r="5"/><circle cx="800" cy="168" r="5"/></g>
+<g class="lbl"><text x="480" y="220" class="i">gear ratio →</text><text x="170" y="50">QDD (~6–10:1)</text><text x="460" y="104">cycloidal / planetary stacks</text><text x="800" y="154">harmonic (high ratio)</text>
+<text class="l i" x="600" y="70">torque density / precision</text><text class="l i" x="600" y="150">backdrivability, impact tolerance</text></g></svg>
+<figcaption>Fig. 03.1 — Qualitative trade-off. Curves are illustrative, not measured.</figcaption></figure>
+<div class="seealso"><b>See also</b><a href="#body">Study 04 · The Body</a><a href="catalogue.html?k=Actuator">All actuators</a><a data-c="ts15066">ISO/TS 15066 force limits</a></div>
+</section>
+
+<!-- 04 -->
+<section class="study" id="body">
+<div class="sc">Study No. 04</div><h2>The Body</h2>
+<p class="lede">Walking is now learned more than it is programmed — in simulation, thousands of robots at a time.</p>
+<p>The turn came with GPU-resident simulators. <a data-c="isaac-gym">Isaac Gym</a> ran physics and learning on one GPU<sup class="fn"><a href="#r17">17</a></sup>, and Rudin et al. trained walking policies in minutes of wall-clock time with thousands of parallel robots<sup class="fn"><a href="#r18">18</a></sup>. Today <a data-c="isaac-lab">Isaac Lab</a><sup class="fn"><a href="#r19">19</a></sup> and <a data-c="mujoco">MuJoCo</a>'s JAX port <a data-c="mjx">MJX</a> with <a data-c="playground">MuJoCo Playground</a><sup class="fn"><a href="#r20">20</a></sup> carry this forward.</p>
+<p>Policies cross to hardware through <a data-g="sim2real">sim-to-real</a> techniques, the oldest being <a data-c="domain-rand">domain randomization</a><sup class="fn"><a href="#r21">21</a></sup>. Radosavovic et al. deployed a transformer trained entirely in simulation zero-shot on a real humanoid outdoors<sup class="fn"><a href="#r22">22</a></sup>. <a data-c="humanplus">HumanPlus</a> went beyond walking: a humanoid shadowing a person in real time from a single RGB camera, then imitating the skills it collected<sup class="fn"><a href="#r23">23</a></sup>.</p>
+<figure class="ink"><svg viewBox="0 0 960 170" role="img" aria-label="Sim-to-real pipeline">
+<g class="pen"><rect x="30" y="50" width="170" height="70" rx="4"/><rect x="250" y="50" width="170" height="70" rx="4"/><rect x="470" y="50" width="170" height="70" rx="4"/><rect x="690" y="50" width="240" height="70" rx="4"/>
+<path d="M200 85h50M420 85h50M640 85h50"/><path d="M244 81l6 4-6 4M464 81l6 4-6 4M684 81l6 4-6 4"/><path class="faint" d="M810 120 C810 160 115 160 115 120"/></g>
+<g class="lbl"><text x="115" y="90">Robot model</text><text x="335" y="90">Randomize</text><text x="555" y="90">Parallel RL</text><text x="810" y="90">Deploy on hardware</text><text x="460" y="160" class="i">measure the gap, refine the model, repeat</text></g></svg>
+<figcaption>Fig. 04.1 — The sim-to-real loop.</figcaption></figure>
+<p>On hardware, the open research platforms are <a data-c="unitree-h1">Unitree H1</a> and <a data-c="unitree-g1">G1</a>; Boston Dynamics replaced hydraulic Atlas with an <a data-c="atlas">electric Atlas</a> in 2024, and in January 2026 unveiled a product version it describes as having 56 degrees of freedom, with 2026 deployments committed to Hyundai and Google DeepMind<sup class="fn"><a href="#r24">24</a></sup>. Whole-body control — legs, torso and arms coordinated while manipulating — is where Figure's Helix 02 post says its newest model is heading, adding a 1 kHz "System 0" for balance and contact<sup class="fn"><a href="#r25">25</a></sup>.</p>
+<p class="note">Morph's position <span class="dt">design target</span>: legs come last (<a href="atelier.html#m5">M5</a>). Household value is in the upper body; we would train locomotion in Isaac Lab or MJX only once the hand and arms work.</p>
+<div class="seealso"><b>See also</b><a href="#actuators">Study 03 · Muscle</a><a href="#brain">Study 05 · The Brain</a><a href="catalogue.html?k=Simulator">All simulators</a></div>
+</section>
+
+<!-- 05 -->
+<section class="study" id="brain">
+<div class="sc">Study No. 05</div><h2>The Brain</h2>
+<p class="lede">A <a data-g="vla">vision-language-action model</a> is a language model that learned to answer with motion.</p>
+<p>Google's <a data-c="rt1">RT-1</a> tokenized robot actions and trained a transformer on a large fleet dataset<sup class="fn"><a href="#r26">26</a></sup>. <a data-c="rt2">RT-2</a> took the next step, co-fine-tuning a web-pretrained VLM to output actions as text tokens, and named the category "vision-language-action"<sup class="fn"><a href="#r27">27</a></sup>.</p>
+<p>The open lineage followed. <a data-c="octo">Octo</a> is a small transformer policy trained on 800k trajectories<sup class="fn"><a href="#r28">28</a></sup>. <a data-c="openvla">OpenVLA</a> is a 7B model trained on 970k demonstrations and reported a 16.5% absolute gain over the 55B RT-2-X across 29 tasks, with 7x fewer parameters<sup class="fn"><a href="#r29">29</a></sup>; <a data-c="openvla-oft">OpenVLA-OFT</a> then showed how fine-tuning choices — <a data-g="chunk">action chunking</a>, parallel decoding, continuous actions — change speed and success<sup class="fn"><a href="#r30">30</a></sup>.</p>
+<p>Physical Intelligence's <a data-c="pi0">π0</a> pairs the <a data-c="paligemma">PaliGemma</a> VLM with a <a data-c="flow">flow-matching</a> "action expert" producing continuous action chunks<sup class="fn"><a href="#r31">31</a></sup>. <a data-c="pi05">π0.5</a> co-trains on heterogeneous data and evaluates cleaning in homes it never saw<sup class="fn"><a href="#r32">32</a></sup>. Both are released as open weights in <a data-c="openpi">openpi</a><sup class="fn"><a href="#r33">33</a></sup>, alongside the <a data-c="fast">FAST</a> action tokenizer<sup class="fn"><a href="#r34">34</a></sup>.</p>
+<p>Humanoid-specific models split thinking from acting. NVIDIA's <a data-c="groot-n1">GR00T N1</a> has 2.2B parameters, 1.34B in its Eagle-2 VLM, with a diffusion-transformer action module running at 120 Hz<sup class="fn"><a href="#r35">35</a></sup>. Figure's <a data-c="helix">Helix</a> pairs a 7B VLM at 7–9 Hz with an 80M visuomotor policy at 200 Hz<sup class="fn"><a href="#r7">7</a></sup>. Google DeepMind's <a data-c="gemini-robotics">Gemini Robotics</a> builds a VLA on Gemini 2.0<sup class="fn"><a href="#r36">36</a></sup>.</p>
+<figure class="ink"><svg viewBox="0 0 960 240" role="img" aria-label="Dual-system VLA">
+<g class="pen"><rect x="40" y="90" width="150" height="60" rx="4"/><rect x="260" y="40" width="260" height="70" rx="4"/><rect x="260" y="140" width="260" height="70" rx="4"/><rect x="600" y="140" width="150" height="70" rx="4"/><rect x="810" y="140" width="120" height="70" rx="4"/>
+<path d="M190 110 L260 75 M190 130 L260 175 M390 110 V140 M520 175 H600 M750 175 H810"/><path d="M386 134l4 6 4-6M594 171l6 4-6 4M804 171l6 4-6 4"/></g>
+<g class="lbl"><text x="115" y="118">Camera + words</text><text x="390" y="72">System 2 · VLM</text><text x="390" y="94" class="i">slow: scene, language, plan</text><text x="390" y="172">System 1 · action head</text><text x="390" y="194" class="i">fast: diffusion / flow / tokens</text><text x="675" y="180">Action chunk</text><text x="870" y="180">Joints</text>
+<text x="660" y="60" class="i l">Helix: 7B @ 7–9 Hz → 80M @ 200 Hz</text><text x="660" y="84" class="i l">GR00T N1: 1.34B VLM → DiT @ 120 Hz</text><text x="660" y="108" class="i l">π0: PaliGemma → flow action expert</text></g></svg>
+<figcaption>Fig. 05.1 — The common shape of a modern VLA. Figures as reported in each source.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>Model</th><th>Size (reported)</th><th>Action output</th><th>Open?</th></tr></thead><tbody>
+<tr><td><a data-c="rt1">RT-1</a></td><td>~35M</td><td>Discrete tokens</td><td>Code</td></tr>
+<tr><td><a data-c="rt2">RT-2</a></td><td>up to 55B</td><td>Text tokens</td><td>No</td></tr>
+<tr><td><a data-c="octo">Octo</a></td><td>27M / 93M</td><td>Diffusion head</td><td>Yes</td></tr>
+<tr><td><a data-c="openvla">OpenVLA</a></td><td>7B</td><td>Discrete tokens</td><td>Yes</td></tr>
+<tr><td><a data-c="pi0">π0</a></td><td>~3B</td><td>Flow matching, chunks</td><td>Yes (openpi)</td></tr>
+<tr><td><a data-c="groot-n1">GR00T N1</a></td><td>2.2B</td><td>Flow-matching DiT</td><td>Yes</td></tr>
+<tr><td><a data-c="helix">Helix</a></td><td>7B + 80M</td><td>Continuous, 200 Hz</td><td>No</td></tr>
+<tr><td><a data-c="gemini-robotics">Gemini Robotics</a></td><td>Not disclosed</td><td>—</td><td>No</td></tr>
+</tbody></table></div>
+<p class="note">Morph's position <span class="dt">design target</span>: we do not train a brain from scratch. We fine-tune open models — openpi (π0 / π0.5) first, OpenVLA-OFT as a comparison — on our own teleoperation data, and publish the results either way (<a href="atelier.html#m4">M4</a>).</p>
+<div class="seealso"><b>See also</b><a href="#data">Study 06 · Data</a><a href="catalogue.html?k=Model">All models</a><a data-c="diffusion-policy">Diffusion Policy</a><a data-g="vla">Glossary · VLA</a></div>
+</section>
+
+<!-- 06 -->
+<section class="study" id="data">
+<div class="sc">Study No. 06</div><h2>Data</h2>
+<p class="lede">There is no internet of robot actions. Every trajectory has to be made.</p>
+<p>The largest pooled source is <a data-c="oxe">Open X-Embodiment</a>: data from 22 robots across 21 institutions, covering 527 skills<sup class="fn"><a href="#r37">37</a></sup>. <a data-c="droid">DROID</a> took a different tack, one hardware rig in many places: 76k trajectories, about 350 hours, 564 scenes and 84 tasks<sup class="fn"><a href="#r38">38</a></sup>. Humanoid-specific collections like <a data-c="agibot-world">AgiBot World</a> are now appearing<sup class="fn"><a href="#r39">39</a></sup>.</p>
+<p><a data-g="teleop">Teleoperation</a> is how most of it is made. <a data-c="aloha">ALOHA</a> made bimanual puppeteering cheap and introduced <a data-c="act">ACT</a><sup class="fn"><a href="#r40">40</a></sup>; <a data-c="mobile-aloha">Mobile ALOHA</a> put it on wheels and reports that, with 50 demonstrations per task, co-training with static ALOHA data raised success by up to 90%<sup class="fn"><a href="#r41">41</a></sup>. <a data-c="umi">UMI</a> removed the robot entirely: a handheld gripper with a camera, deployed later on robots<sup class="fn"><a href="#r42">42</a></sup>.</p>
+<p>Two other sources scale further. <a data-g="human-video">Human video</a> — <a data-c="ego4d">Ego4D</a> offers 3,670 hours of egocentric footage<sup class="fn"><a href="#r43">43</a></sup> and <a data-c="r3m">R3M</a> showed it trains better visual encoders<sup class="fn"><a href="#r44">44</a></sup>. And <a data-g="sim-data">synthetic data</a> — <a data-c="dexmimicgen">DexMimicGen</a> multiplies a few demos into many in simulation<sup class="fn"><a href="#r45">45</a></sup>, part of GR00T N1's data mixture<sup class="fn"><a href="#r35">35</a></sup>.</p>
+<figure class="ink"><svg viewBox="0 0 960 220" role="img" aria-label="Data pyramid">
+<g class="pen"><path d="M480 20 L860 200 H100 Z"/><path d="M400 58 H560 M310 100 H650 M210 148 H750"/></g>
+<g class="lbl"><text x="480" y="50">Real robot</text><text x="480" y="88" class="i">teleop · ALOHA, DROID, OXE</text><text x="480" y="132">Simulation</text><text x="480" y="182">Human video · web</text>
+<text x="905" y="60" class="i">scarce, exact</text><text x="905" y="190" class="i">abundant, indirect</text></g></svg>
+<figcaption>Fig. 06.1 — The data pyramid used across recent VLA reports. Qualitative.</figcaption></figure>
+<p class="note">Morph's position <span class="dt">design target</span>: build an open, LeRobot-compatible teleop rig (<a href="atelier.html#m3">M3</a>) and publish every household episode we record, consented and scrubbed of personal information. Tooling: <a data-c="lerobot">LeRobot</a>.</p>
+<div class="seealso"><b>See also</b><a href="#brain">Study 05 · The Brain</a><a href="catalogue.html?k=Dataset">All datasets</a><a href="catalogue.html?k=Teleop">All teleop systems</a></div>
+</section>
+
+<!-- 07 -->
+<section class="study" id="safety">
+<div class="sc">Study No. 07</div><h2>Safety &amp; Evaluation</h2>
+<p class="lede">A home robot is judged by the one time it does the wrong thing.</p>
+<p>Evaluation starts in simulation. <a data-c="libero">LIBERO</a> defines 130 language-conditioned tasks in four suites<sup class="fn"><a href="#r46">46</a></sup> and is now the default fine-tuning check for VLAs. <a data-c="simpler">SimplerEnv</a> builds simulated replicas of real setups so results correlate with real-robot outcomes<sup class="fn"><a href="#r47">47</a></sup>. <a data-c="calvin">CALVIN</a> tests chains of instructions<sup class="fn"><a href="#r48">48</a></sup>, and <a data-c="behavior">BEHAVIOR-1K</a> grounds 1,000 household activities in what people say they want robots to do<sup class="fn"><a href="#r49">49</a></sup>.</p>
+<p>Physical safety has standards. <a data-c="iso13482">ISO 13482</a> covers personal care robots<sup class="fn"><a href="#r50">50</a></sup>; <a data-c="ts15066">ISO/TS 15066</a> gives limits for contact between collaborative industrial robots and people<sup class="fn"><a href="#r51">51</a></sup>; it does not formally apply to home robots, and ISO 10218-1:2025 explicitly excludes household consumer products from its scope — a gap in the standards a home humanoid falls into. <a data-g="safety">Semantic safety</a> is newer: DeepMind's <a data-c="asimov">ASIMOV</a> benchmark asks whether a model understands which actions are unsafe in context<sup class="fn"><a href="#r52">52</a></sup>.</p>
+<div class="tw"><table><thead><tr><th>Layer</th><th>Question</th><th>Tool</th></tr></thead><tbody>
+<tr><td>Mechanical</td><td>Can it hurt someone by contact?</td><td><a data-c="ts15066">ISO/TS 15066</a>, <a data-g="backdrive">backdrivable</a> joints</td></tr>
+<tr><td>System</td><td>Is the product safe as a care robot?</td><td><a data-c="iso13482">ISO 13482</a></td></tr>
+<tr><td>Skill</td><td>Does the policy succeed?</td><td><a data-c="libero">LIBERO</a>, <a data-c="simpler">SimplerEnv</a>, real trials</td></tr>
+<tr><td>Judgement</td><td>Does it know what not to do?</td><td><a data-c="asimov">ASIMOV</a></td></tr>
+</tbody></table></div>
+<p class="note">Morph's position <span class="dt">design target</span>: no unsupervised operation in a home. Every pilot (<a href="atelier.html#m6">M6</a>) runs with a person present and a physical stop, and we publish failures alongside successes.</p>
+<div class="seealso"><b>See also</b><a href="catalogue.html?k=Benchmark">All benchmarks</a><a href="catalogue.html?k=Standard">All standards</a><a href="atelier.html#questions">Open questions</a></div>
+</section>
+
+<section class="study" id="references"><div class="sc">Sources</div><h2>References</h2>
+<ol class="refs">
+<li id="r1">Shadow Robot Company — Dexterous Hand Series. <a href="https://www.shadowrobot.com/dexterous-hand-series/">shadowrobot.com</a></li>
+<li id="r2">OpenAI et al., "Solving Rubik's Cube with a Robot Hand", 2019. <a href="https://arxiv.org/abs/1910.07113">arXiv:1910.07113</a></li>
+<li id="r3">Shaw, Agarwal, Pathak, "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning", RSS 2023. <a href="https://arxiv.org/abs/2309.06440">arXiv:2309.06440</a></li>
+<li id="r4">Inspire Robots — dexterous hands. <a href="https://en.inspire-robots.com/product-category/the-dexterous-hands">inspire-robots.com</a></li>
+<li id="r5">Ars Technica, "Tesla unveils its latest humanoid robot, Optimus Gen 2", Dec 2023. <a href="https://arstechnica.com/information-technology/2023/12/teslas-latest-humanoid-robot-optimus-gen-2-can-handle-eggs-without-cracking-them/">arstechnica.com</a></li>
+<li id="r6">Cybernews, reporting M. Kovac's post on the Optimus hand, Nov 2024. <a href="https://cybernews.com/entertainment/optimus-new-hand-upgrade/">cybernews.com</a></li>
+<li id="r7">Figure AI, "Helix: A Vision-Language-Action Model for Generalist Humanoid Control", 2025. <a href="https://www.figure.ai/news/helix">figure.ai</a></li>
+<li id="r8">Yuan, Dong, Adelson, "GelSight: High-Resolution Robot Tactile Sensors…", Sensors 2017. <a href="https://www.mdpi.com/1424-8220/17/12/2762">mdpi.com</a></li>
+<li id="r9">Lambeta et al., "DIGIT", 2020. <a href="https://arxiv.org/abs/2005.14679">arXiv:2005.14679</a></li>
+<li id="r10">Lambeta et al., "Digitizing Touch with an Artificial Multimodal Fingertip", 2024. <a href="https://arxiv.org/abs/2411.02479">arXiv:2411.02479</a></li>
+<li id="r11">Bhirangi et al., "ReSkin", 2021. <a href="https://arxiv.org/abs/2111.00071">arXiv:2111.00071</a></li>
+<li id="r12">Bhirangi et al., "AnySkin", 2024. <a href="https://arxiv.org/abs/2409.08276">arXiv:2409.08276</a></li>
+<li id="r13">Harmonic Drive LLC — strain wave gearing technology. <a href="https://www.harmonicdrive.net/technology">harmonicdrive.net</a></li>
+<li id="r14">Wensing et al., "Proprioceptive Actuator Design in the MIT Cheetah", IEEE T-RO 2017. <a href="https://ieeexplore.ieee.org/document/7827048">ieeexplore</a></li>
+<li id="r15">Katz, Di Carlo, Kim, "Mini Cheetah", ICRA 2019. <a href="https://ieeexplore.ieee.org/document/8793865">ieeexplore</a></li>
+<li id="r16">Pratt, Williamson, "Series Elastic Actuators", IROS 1995. <a href="https://ieeexplore.ieee.org/document/525827">ieeexplore</a></li>
+<li id="r17">Makoviychuk et al., "Isaac Gym", 2021. <a href="https://arxiv.org/abs/2108.10470">arXiv:2108.10470</a></li>
+<li id="r18">Rudin et al., "Learning to Walk in Minutes…", CoRL 2021. <a href="https://arxiv.org/abs/2109.11978">arXiv:2109.11978</a></li>
+<li id="r19">Isaac Lab. <a href="https://github.com/isaac-sim/IsaacLab">github.com/isaac-sim/IsaacLab</a></li>
+<li id="r20">Zakka et al., "MuJoCo Playground", 2025. <a href="https://arxiv.org/abs/2502.08844">arXiv:2502.08844</a>; MJX docs <a href="https://mujoco.readthedocs.io/en/stable/mjx.html">mujoco.readthedocs.io</a></li>
+<li id="r21">Tobin et al., "Domain Randomization…", 2017. <a href="https://arxiv.org/abs/1703.06907">arXiv:1703.06907</a></li>
+<li id="r22">Radosavovic et al., "Real-World Humanoid Locomotion with Reinforcement Learning", 2023. <a href="https://arxiv.org/abs/2303.03381">arXiv:2303.03381</a></li>
+<li id="r23">Fu et al., "HumanPlus", 2024. <a href="https://arxiv.org/abs/2406.10454">arXiv:2406.10454</a></li>
+<li id="r24">Boston Dynamics, "An Electric New Era for Atlas", 2024. <a href="https://bostondynamics.com/blog/electric-new-era-for-atlas/">bostondynamics.com</a>; product unveiling, Jan 2026, <a href="https://bostondynamics.com/blog/boston-dynamics-unveils-new-atlas-robot-to-revolutionize-industry/">bostondynamics.com</a></li>
+<li id="r25">Figure AI, "Introducing Helix 02: Full-Body Autonomy". <a href="https://www.figure.ai/news/helix-02">figure.ai</a></li>
+<li id="r26">Brohan et al., "RT-1", 2022. <a href="https://arxiv.org/abs/2212.06817">arXiv:2212.06817</a></li>
+<li id="r27">Brohan et al., "RT-2", 2023. <a href="https://arxiv.org/abs/2307.15818">arXiv:2307.15818</a></li>
+<li id="r28">Octo Model Team, "Octo", 2024. <a href="https://arxiv.org/abs/2405.12213">arXiv:2405.12213</a></li>
+<li id="r29">Kim et al., "OpenVLA", 2024. <a href="https://arxiv.org/abs/2406.09246">arXiv:2406.09246</a></li>
+<li id="r30">Kim, Finn, Liang, "Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success", 2025. <a href="https://arxiv.org/abs/2502.19645">arXiv:2502.19645</a></li>
+<li id="r31">Black et al., "π0", 2024. <a href="https://arxiv.org/abs/2410.24164">arXiv:2410.24164</a></li>
+<li id="r32">Physical Intelligence, "π0.5", 2025. <a href="https://arxiv.org/abs/2504.16054">arXiv:2504.16054</a></li>
+<li id="r33">openpi. <a href="https://github.com/Physical-Intelligence/openpi">github.com/Physical-Intelligence/openpi</a></li>
+<li id="r34">Pertsch et al., "FAST", 2025. <a href="https://arxiv.org/abs/2501.09747">arXiv:2501.09747</a></li>
+<li id="r35">NVIDIA, "GR00T N1", 2025. <a href="https://arxiv.org/abs/2503.14734">arXiv:2503.14734</a></li>
+<li id="r36">Gemini Robotics Team, "Gemini Robotics", 2025. <a href="https://arxiv.org/abs/2503.20020">arXiv:2503.20020</a></li>
+<li id="r37">Open X-Embodiment Collaboration, 2023. <a href="https://arxiv.org/abs/2310.08864">arXiv:2310.08864</a></li>
+<li id="r38">Khazatsky et al., "DROID", 2024. <a href="https://arxiv.org/abs/2403.12945">arXiv:2403.12945</a></li>
+<li id="r39">AgiBot World Colosseo, 2025. <a href="https://arxiv.org/abs/2503.06669">arXiv:2503.06669</a></li>
+<li id="r40">Zhao et al., "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware" (ALOHA / ACT), 2023. <a href="https://arxiv.org/abs/2304.13705">arXiv:2304.13705</a></li>
+<li id="r41">Fu, Zhao, Finn, "Mobile ALOHA", 2024. <a href="https://arxiv.org/abs/2401.02117">arXiv:2401.02117</a></li>
+<li id="r42">Chi et al., "Universal Manipulation Interface", 2024. <a href="https://arxiv.org/abs/2402.10329">arXiv:2402.10329</a></li>
+<li id="r43">Grauman et al., "Ego4D", 2021. <a href="https://arxiv.org/abs/2110.07058">arXiv:2110.07058</a></li>
+<li id="r44">Nair et al., "R3M", 2022. <a href="https://arxiv.org/abs/2203.12601">arXiv:2203.12601</a></li>
+<li id="r45">Jiang et al., "DexMimicGen", 2024. <a href="https://arxiv.org/abs/2410.24185">arXiv:2410.24185</a></li>
+<li id="r46">Liu et al., "LIBERO", 2023. <a href="https://arxiv.org/abs/2306.03310">arXiv:2306.03310</a></li>
+<li id="r47">Li et al., "Evaluating Real-World Robot Manipulation Policies in Simulation" (SimplerEnv), 2024. <a href="https://arxiv.org/abs/2405.05941">arXiv:2405.05941</a></li>
+<li id="r48">Mees et al., "CALVIN", 2021. <a href="https://arxiv.org/abs/2112.03227">arXiv:2112.03227</a></li>
+<li id="r49">Li et al., "BEHAVIOR-1K", 2024. <a href="https://arxiv.org/abs/2403.09227">arXiv:2403.09227</a></li>
+<li id="r50">ISO 13482:2014, Robots and robotic devices — Safety requirements for personal care robots. <a href="https://www.iso.org/standard/53820.html">iso.org</a></li>
+<li id="r51">ISO/TS 15066:2016, Collaborative robots. <a href="https://www.iso.org/standard/62996.html">iso.org</a></li>
+<li id="r52">Sermanet et al., "Generating Robot Constitutions &amp; Benchmarks for Semantic Safety", 2025. <a href="https://arxiv.org/abs/2503.08663">arXiv:2503.08663</a></li>
+</ol></section>
+</main>
+<footer><span>Morph · Studies in actuated form · MMXXVI</span><span><a href="index.html">The machine</a> · <a href="studies.html">Studies</a> · <a href="catalogue.html">Catalogue</a> · <a href="atelier.html">Atelier</a> · <a href="atelier.html#glossary">Glossary</a></span><span>Experimental research project. Not financial advice.</span></footer>
+<script src="data/catalogue.js?v=12"></script><script src="lab.js?v=12"></script>
+</body></html>
